@@ -7,7 +7,7 @@ import { Col, Row, Typography, Select } from 'antd';
 import { MoneyCollectOutlined, DollarCircleOutlined, FundOutlined, ExclamationCircleOutlined, StopOutlined, TrophyOutlined, CheckOutlined, NumberOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 import { useGetCryptoDetailsQuery, useGetCryptoHistoryQuery } from '../services/cryptoApi';
-import { LineChart } from '../components';
+import { LineChart, Loader } from '../components';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -17,9 +17,10 @@ const CryptoDetails = () => {
   const { coinId } = useParams();
   const [timeperiod, setTimeperiod] = useState('7d');
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
-  const { data: coinHistory } = useGetCryptoDetailsQuery(coinId, timeperiod);
-  if(isFetching) return 'Loading...';
+  const { data: coinHistory } = useGetCryptoHistoryQuery({ coinId, timeperiod });
+  if(isFetching) return <Loader />;
   const cryptoDetails = data?.data?.coin;
+
 
   
   const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
@@ -39,7 +40,6 @@ const CryptoDetails = () => {
   ];
 
 
-  console.log(data);
   return (
     <Col className='coin-details-container'>
       <Col className="coin-heading-container">
