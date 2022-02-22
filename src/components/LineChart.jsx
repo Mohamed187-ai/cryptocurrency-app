@@ -1,6 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { Line } from 'react-chartjs-2';
+import { Col, Row, Typography } from 'antd';
 
-const LineChart = () => {
+const { Title } = Typography;
+
+const LineChart = ({}) => {
   return (
     <div>LineChart</div>
   )
